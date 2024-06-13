@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.5.12;
+pragma solidity ^0.8.0;
 
 contract ERC20{
 
@@ -29,7 +29,7 @@ contract ERC20{
         _;
     }
 
-    constructor(bytes memory tokenName, bytes memory tokenSymbol, uint8 unitDecimals, uint256 totalSupplyAmount) public {
+    constructor(bytes memory tokenName, bytes memory tokenSymbol, uint8 unitDecimals, uint256 totalSupplyAmount) {
         owner = msg.sender;
         name = tokenName;
         symbol = tokenSymbol;
@@ -55,6 +55,8 @@ contract ERC20{
 
     function transferFrom(address _from, address _to, uint256 _value) external onlyAuthorizedAccount(_from)  balanceCheck(_from, _value) returns(bool) {
         if (_from != msg.sender){
+            require(approveList[_from][msg.sender] >= _value, "03");
+            // 03: Your approved value to transfer is less than value you want.
             approveList[_from][msg.sender] -= _value;
         }
         balanceList[_from] -= _value;
@@ -65,6 +67,7 @@ contract ERC20{
 
     function approve(address _spender, uint256 _value) external balanceCheck(msg.sender, _value) returns(bool) {
         approveList[msg.sender][_spender]  = _value;
+        whoIsApprovedBy[msg.sender] = _spender;
         emit Approval(msg.sender, _spender, _value);
         return true;
     }
