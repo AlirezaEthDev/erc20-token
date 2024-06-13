@@ -1,0 +1,98 @@
+<?xml version="1.0" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="364pt" height="632pt" viewBox="0.00 0.00 363.92 632.00">
+<g id="graph0" class="graph" transform="translate(40.741169588867706,564.9984013692114) scale(0.7491535470358746)" data-name="G">
+
+<polygon fill="#2e3e56" stroke="none" points="-4,4 -4,-628 359.92,-628 359.92,4 -4,4" style=""/>
+<g id="clust1" class="cluster" data-name="clusterERC20">
+
+<path fill="#445773" stroke="#445773" d="M20,-8C20,-8 245.92,-8 245.92,-8 251.92,-8 257.92,-14 257.92,-20 257.92,-20 257.92,-467 257.92,-467 257.92,-473 251.92,-479 245.92,-479 245.92,-479 20,-479 20,-479 14,-479 8,-473 8,-467 8,-467 8,-20 8,-20 8,-14 14,-8 20,-8" style=""/>
+<text text-anchor="middle" x="132.96" y="-462.4" font-family="Times,serif" font-size="14.00" fill="#f0f0f0" style="">ERC20</text>
+</g>
+<g id="clust2" class="cluster" data-name="cluster_01">
+
+<polygon fill="#2e3e56" stroke="black" points="59.96,-487 59.96,-616 347.92,-616 347.92,-487 59.96,-487" style=""/>
+<text text-anchor="middle" x="203.94" y="-599.4" font-family="Times,serif" font-size="14.00" style="">Legend</text>
+</g>
+<!-- ERC20.onlyAuthorizedAccount -->
+<g id="node1" class="node" pointer-events="visible" data-name="ERC20.onlyAuthorizedAccount">
+
+<polygon fill="#edad56" stroke="#1bc6a6" stroke-width="3" points="245.88,-416.54 245.88,-431.46 179.73,-442 86.19,-442 20.04,-431.46 20.04,-416.54 86.19,-406 179.73,-406 245.88,-416.54" style=""/>
+<polygon fill="none" stroke="#1bc6a6" stroke-width="3" points="249.88,-413.13 249.88,-434.87 180.05,-446 85.87,-446 16.04,-434.87 16.04,-413.13 85.87,-402 180.05,-402 249.88,-413.13" style=""/>
+<text text-anchor="middle" x="132.96" y="-419.8" font-family="Times,serif" font-size="14.00" style="">onlyAuthorizedAccount</text>
+</g>
+<!-- ERC20.balanceCheck -->
+<g id="node2" class="node" pointer-events="visible" data-name="ERC20.balanceCheck">
+
+<polygon fill="#edad56" stroke="#1bc6a6" stroke-width="3" points="203.58,-354.54 203.58,-369.46 162.21,-380 103.71,-380 62.34,-369.46 62.34,-354.54 103.71,-344 162.21,-344 203.58,-354.54" style=""/>
+<polygon fill="none" stroke="#1bc6a6" stroke-width="3" points="207.59,-351.44 207.59,-372.56 162.72,-384 103.2,-384 58.33,-372.56 58.33,-351.44 103.2,-340 162.72,-340 207.59,-351.44" style=""/>
+<text text-anchor="middle" x="132.96" y="-357.8" font-family="Times,serif" font-size="14.00" style="">balanceCheck</text>
+</g>
+<!-- ERC20.&lt;Constructor&gt; -->
+<g id="node3" class="node" pointer-events="visible" data-name="ERC20.&lt;Constructor&gt;">
+
+<ellipse fill="#ff9797" stroke="#ff9797" stroke-width="3" cx="132.96" cy="-304" rx="67.55" ry="18" style=""/>
+<text text-anchor="middle" x="132.96" y="-299.8" font-family="Times,serif" font-size="14.00" style="">&lt;Constructor&gt;</text>
+</g>
+<!-- ERC20.balanceOf -->
+<g id="node4" class="node" pointer-events="visible" data-name="ERC20.balanceOf">
+
+<ellipse fill="#ffbdb9" stroke="#ffbdb9" stroke-width="3" cx="132.96" cy="-250" rx="50.92" ry="18" style=""/>
+<text text-anchor="middle" x="132.96" y="-245.8" font-family="Times,serif" font-size="14.00" style="">balanceOf</text>
+</g>
+<!-- ERC20.transfer -->
+<g id="node5" class="node" pointer-events="visible" data-name="ERC20.transfer">
+
+<ellipse fill="#ffbdb9" stroke="#ffbdb9" stroke-width="3" cx="132.96" cy="-196" rx="40.55" ry="18" style=""/>
+<text text-anchor="middle" x="132.96" y="-191.8" font-family="Times,serif" font-size="14.00" style="">transfer</text>
+</g>
+<!-- ERC20.transferFrom -->
+<g id="node6" class="node" pointer-events="visible" data-name="ERC20.transferFrom">
+
+<ellipse fill="#ffbdb9" stroke="#ffbdb9" stroke-width="3" cx="132.96" cy="-142" rx="61.41" ry="18" style=""/>
+<text text-anchor="middle" x="132.96" y="-137.8" font-family="Times,serif" font-size="14.00" style="">transferFrom</text>
+</g>
+<!-- ERC20.approve -->
+<g id="node7" class="node" pointer-events="visible" data-name="ERC20.approve">
+
+<ellipse fill="#ffbdb9" stroke="#ffbdb9" stroke-width="3" cx="132.96" cy="-88" rx="42.28" ry="18" style=""/>
+<text text-anchor="middle" x="132.96" y="-83.8" font-family="Times,serif" font-size="14.00" style="">approve</text>
+</g>
+<!-- ERC20.allowance -->
+<g id="node8" class="node" pointer-events="visible" data-name="ERC20.allowance">
+
+<ellipse fill="#ffbdb9" stroke="#ffbdb9" stroke-width="3" cx="132.96" cy="-34" rx="50.36" ry="18" style=""/>
+<text text-anchor="middle" x="132.96" y="-29.8" font-family="Times,serif" font-size="14.00" style="">allowance</text>
+</g>
+<!-- key -->
+<g id="node9" class="node" pointer-events="visible" data-name="key">
+
+<polygon fill="#edad56" stroke="none" stroke-width="3" points="197.96,-583 67.96,-583 67.96,-495 197.96,-495 197.96,-583" style=""/>
+<text text-anchor="start" x="117.6" y="-564.4" font-family="Times,serif" font-size="14.00" style="">Internal Call</text>
+<text text-anchor="start" x="113.71" y="-544.4" font-family="Times,serif" font-size="14.00" style="">External Call</text>
+<text text-anchor="start" x="91.16" y="-524.4" font-family="Times,serif" font-size="14.00" style="">Defined Contract</text>
+<text text-anchor="start" x="77.56" y="-504.4" font-family="Times,serif" font-size="14.00" style="">Undefined Contract</text>
+</g>
+<!-- key2 -->
+<g id="node10" class="node" pointer-events="visible" data-name="key2">
+
+<polygon fill="#edad56" stroke="none" stroke-width="3" points="339.92,-583 285.92,-583 285.92,-495 339.92,-495 339.92,-583" style=""/>
+<text text-anchor="start" x="302.92" y="-564.4" font-family="Times,serif" font-size="14.00" style="">   </text>
+<text text-anchor="start" x="302.92" y="-544.4" font-family="Times,serif" font-size="14.00" style="">   </text>
+<polygon fill="#445773" stroke="none" points="300.92,-519 300.92,-539 325.92,-539 325.92,-519 300.92,-519" style=""/>
+<text text-anchor="start" x="302.92" y="-524.4" font-family="Times,serif" font-size="14.00" style="">   </text>
+<polygon fill="none" stroke="#e8726d" points="302.92,-501 302.92,-517 323.92,-517 323.92,-501 302.92,-501" style=""/>
+</g>
+<!-- key&#45;&gt;key2 -->
+<g id="edge1" class="edge" data-name="key-&gt;key2">
+
+<path fill="none" stroke="#1bc6a6" stroke-width="2" d="M190.96,-569C234.85,-569 248.9,-569 287.2,-569" style=""/>
+<polygon fill="#1bc6a6" stroke="#1bc6a6" stroke-width="2" points="286.89,-572.5 296.89,-569 286.89,-565.5 286.89,-572.5" style=""/>
+</g>
+<!-- key&#45;&gt;key2 -->
+<g id="edge2" class="edge" data-name="key-&gt;key2">
+
+<path fill="none" stroke="white" stroke-width="2" d="M190.96,-549C234.85,-549 248.9,-549 287.2,-549" style=""/>
+<polygon fill="white" stroke="white" stroke-width="2" points="286.89,-552.5 296.89,-549 286.89,-545.5 286.89,-552.5" style=""/>
+</g>
+</g>
+</svg>

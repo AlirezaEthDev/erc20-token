@@ -1,0 +1,40 @@
+ Sūrya's Description Report
+
+ Files Description Table
+
+
+|  File Name  |  SHA-1 Hash  |
+|-------------|--------------|
+| e:\smartContract\contracts\erc20.sol | f1391a9bb609730e955bb474d91421f9ae5e7b6c |
+| e:\smartContract\contracts\IERC20.sol | fc7d6c889037dddd5cf1cfe90a8e947255ab547e |
+
+
+ Contracts Description Table
+
+
+|  Contract  |         Type        |       Bases      |                  |                 |
+|:----------:|:-------------------:|:----------------:|:----------------:|:---------------:|
+|     └      |  **Function Name**  |  **Visibility**  |  **Mutability**  |  **Modifiers**  |
+||||||
+| **ERC20** | Implementation |  |||
+| └ | <Constructor> | Public ❗️ | 🛑  |NO❗️ |
+| └ | balanceOf | External ❗️ |   |NO❗️ |
+| └ | transfer | External ❗️ | 🛑  | onlyAuthorizedAccount balanceCheck |
+| └ | transferFrom | External ❗️ | 🛑  | onlyAuthorizedAccount balanceCheck |
+| └ | approve | External ❗️ | 🛑  | balanceCheck |
+| └ | allowance | External ❗️ |   |NO❗️ |
+||||||
+| **IERC20** | Interface |  |||
+| └ | balanceOf | External ❗️ |   |NO❗️ |
+| └ | transfer | External ❗️ | 🛑  |NO❗️ |
+| └ | transferFrom | External ❗️ | 🛑  |NO❗️ |
+| └ | approve | External ❗️ | 🛑  |NO❗️ |
+| └ | allowance | External ❗️ |   |NO❗️ |
+
+
+ Legend
+
+|  Symbol  |  Meaning  |
+|:--------:|-----------|
+|    🛑    | Function can modify state |
+|    💵    | Function is payable |

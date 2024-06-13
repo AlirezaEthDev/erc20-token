@@ -1,0 +1,19 @@
+<?xml version="1.0" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="190pt" height="44pt" viewBox="0.00 0.00 190.16 44.00">
+<g id="graph0" class="graph" transform="translate(4,40) scale(1)" data-name="G">
+
+<polygon fill="white" stroke="none" points="-4,4 -4,-40 186.16,-40 186.16,4 -4,4" style=""/>
+<!-- ERC20 -->
+<g id="node1" class="node" pointer-events="visible" data-name="ERC20">
+
+<ellipse fill="none" stroke="black" cx="39.47" cy="-18" rx="39.45" ry="18" style=""/>
+<text text-anchor="middle" x="39.47" y="-13.8" font-family="Times,serif" font-size="14.00" style="">ERC20</text>
+</g>
+<!-- IERC20 -->
+<g id="node2" class="node" pointer-events="visible" data-name="IERC20">
+
+<ellipse fill="none" stroke="black" cx="139.47" cy="-18" rx="42.88" ry="18" style=""/>
+<text text-anchor="middle" x="139.47" y="-13.8" font-family="Times,serif" font-size="14.00" style="">IERC20</text>
+</g>
+</g>
+</svg>

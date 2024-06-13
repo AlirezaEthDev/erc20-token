@@ -1,0 +1,7 @@
+| Function Name | Sighash    | Function Signature | 
+| ------------- | ---------- | ------------------ | 
+| balanceOf | 70a08231 | balanceOf(address) |
+| transfer | a9059cbb | transfer(address,uint256) |
+| transferFrom | 23b872dd | transferFrom(address,address,uint256) |
+| approve | 095ea7b3 | approve(address,uint256) |
+| allowance | dd62ed3e | allowance(address,address) |
