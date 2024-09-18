@@ -102,7 +102,7 @@ const deployerAccount = accounts[0];
 
 * To deploy contract:
 
-const contractObject=JSON.parse(fs.readFileSync("./artifacts/contracts/sample.sol/Sample.json"));
+const contractObject=JSON.parse(fs.readFileSync("./artifacts/contracts/erc20.sol/ERC20.json"));
 
 const contractBytecode = contractObject.bytecode;
 

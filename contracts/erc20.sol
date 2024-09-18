@@ -45,10 +45,14 @@ contract ERC20{
 
     function transfer(address _to, uint256 _value) external onlyAuthorizedAccount(owner) balanceCheck(owner, _value) returns(bool) {
         if (owner != msg.sender){
-            approveList[owner][msg.sender] -= _value;
+            unchecked {
+                approveList[owner][msg.sender] -= _value;
+            }
         }
-        balanceList[owner] -= _value;
-        balanceList[_to] += _value;
+        unchecked {
+            balanceList[owner] -= _value;
+            balanceList[_to] += _value;
+        }
         emit Transfer(owner, _to, _value);
         return true;
     }
@@ -57,10 +61,14 @@ contract ERC20{
         if (_from != msg.sender){
             require(approveList[_from][msg.sender] >= _value, "03");
             // 03: Your approved value to transfer is less than value you want.
-            approveList[_from][msg.sender] -= _value;
+            unchecked {
+                approveList[_from][msg.sender] -= _value;
+            }
         }
-        balanceList[_from] -= _value;
-        balanceList[_to] += _value;
+        unchecked {
+            balanceList[_from] -= _value;
+            balanceList[_to] += _value;
+        }
         emit Transfer(_from, _to, _value);
         return true;
     }
