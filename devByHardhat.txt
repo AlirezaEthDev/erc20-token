@@ -1,0 +1,121 @@
+1) Install yarn package manager:
+	npm install --global yarn
+2) Use yarn to initial the project:
+	Set-ExecutionPolicy Bypass -Scope Process
+	yarn init
+3) Add hardhat:
+	yarn add --dev hardhat
+4) Create a sample project:
+	npx hardhat init
+5) Compile contract:
+	npx hardhat compile
+6) Deploy (not for empty project):
+	npx hardhat node
+	customize file ./ignition/modules/Lock.js
+	npx hardhat ignition deploy ./ignition/modules/Lock.js --network localhost
+7) Dive into console:
+	npx hardhat console
+	let contractAddress = ""
+	let contractArtifact = await ethers.getContractFactory('<name>')
+	let contract = contractArtifact.attach(contractAddress)
+	
+****************************************
+
+5) Choose Hardhat empty project
+
+6) mkdir contracts
+
+7) cd ./contratcs
+
+8) notepad sample.sol
+
+9) npx hardhat compile
+
+10) cd ../
+
+11)
+To test:
+ npm install @nomiclabs/hardhat-waffle ethereum-waffle chai @nomiclabs/hardhat-ethers ethers
+
+12) mkdir test
+
+13) cd ./test
+
+14) notepad test.mjs
+
+15) Add `require('@nomiclabs/hardhat-ethers')` to hardhat.config.js
+
+16) Program test.mjs:
+
+import { expect } from "chai";
+    describe('Sample', function(){
+        it('Getting author name', async function(){
+            const sampleContract = await hre.ethers.getContractFactory('Sample');
+            const sampleContractDeployed = await sampleContract.deploy();
+            await sampleContractDeployed.deployed();
+            expect(await sampleContractDeployed.getAuthor()).to.equal("AlirezaEthDev");
+        })
+    })
+
+17) To log on console, add the below statement above contract name:
+import "hardhat/console.sol";
+
+18) Then try the below command everywhere of contracts functions you need:
+console.log("<data>", data);
+
+19) To deploy, try it in root dir of project:
+notepad deploy.js
+
+20) Add something like this to the file:
+async function deployContract(){
+    const sampleContract = await hre.ethers.getContractFactory('Sample');
+    const sampleContractDeployed = await sampleContract.deploy();
+    await sampleContractDeployed.deployed();
+    console.log("Contract deployed to: ", sampleContractDeployed.address)
+}
+deployContract().then(()=>{process.exit(0)}).catch((err)=>{
+    console.error(err);
+    process.exit(1);
+})
+
+21) npx hardhat run deploy.js (or the dir of deploy.js) ||  npx hardhat run deploy.js --network localhost
+
+22) To work with more networks, you should add them to hardhat.consfig.js
+
+*************************************************************
+Hardhat console via web3:
+
+1) npm i web3
+
+2) npx hardhat console
+
+3) The below code:
+const fs = require('fs')
+
+const {Web3} = require('web3')
+
+const web3= new Web3(new Web3.providers.WebsocketProvider("ws://127.0.0.1:8545"));
+
+const accounts = await web3.eth.getAccounts(); 
+
+const deployerAccount = accounts[0];
+
+* To deploy contract:
+
+const contractObject=JSON.parse(fs.readFileSync("./artifacts/contracts/sample.sol/Sample.json"));
+
+const contractBytecode = contractObject.bytecode;
+
+const contractABI = contractObject.abi;
+
+const myContract = new web3.eth.Contract(contractABI);
+
+const contractInstance = await myContract.deploy({data: contractBytecode, arguments: []}).send({from: deployerAccount, gas: 1500000, gasPrice: '30000000000'});
+
+const contractAddress = contractInstance.options.address
+
+* Interact with deployed contract:
+
+const myContractDeployed = new web3.eth.Contract(contractABI, contractAddress);
+
+console.log(await myContractDeployed.methods.myReadOnlyFunction().call())
