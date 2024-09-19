@@ -2,12 +2,13 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "C:\\Pug\\erc20-token\\contracts\\erc20.sol": {
-      "lastModificationDate": 1726666047432,
-      "contentHash": "a8c55305557cabb24f5623a48c65e38c",
+      "lastModificationDate": 1726730762044,
+      "contentHash": "c922fd69a22237226e6fdd67164e4e19",
       "sourceName": "contracts/erc20.sol",
       "solcConfig": {
-        "version": "0.8.0",
+        "version": "0.8.27",
         "settings": {
+          "evmVersion": "paris",
           "optimizer": {
             "enabled": false,
             "runs": 200
@@ -30,7 +31,7 @@
       },
       "imports": [],
       "versionPragmas": [
-        "^0.8.0"
+        "^0.8.27"
       ],
       "artifacts": [
         "ERC20"

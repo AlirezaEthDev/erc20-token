@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.27;
 
 contract ERC20{
 
@@ -17,16 +17,30 @@ contract ERC20{
     mapping(address => mapping(address => uint256)) private approveList;
     mapping(address => address) private whoIsApprovedBy;
 
+    error theRequesterIsNotAuthorized();
+    error theBalanceIsNotEnoughToTransferOrApprove();
+    error yourApprovedValueToTransferIsLessThanValueYouWant();
+
     modifier onlyAuthorizedAccount(address authorizedAddress) {
-        require( authorizedAddress == msg.sender || whoIsApprovedBy[authorizedAddress] == msg.sender, "01");
+        if(authorizedAddress == msg.sender || whoIsApprovedBy[authorizedAddress] == msg.sender){
+            _;
+        }else{
+            revert theRequesterIsNotAuthorized();
+        }
+        // require( authorizedAddress == msg.sender || whoIsApprovedBy[authorizedAddress] == msg.sender, "01");
         // 01: The requester is not authorized!
-        _;
+        // _;
     }
 
     modifier balanceCheck(address requester, uint256 requestValue) {
-        require(balanceList[requester] >= requestValue, "02");
-        // 02: The balance is not enough to transfer or approve
-        _;
+        if(balanceList[requester] >= requestValue){
+            _;
+        }else{
+            revert theBalanceIsNotEnoughToTransferOrApprove();
+        }
+        // require(balanceList[requester] >= requestValue, "02");
+        // // 02: The balance is not enough to transfer or approve
+        // _;
     }
 
     constructor(bytes memory tokenName, bytes memory tokenSymbol, uint8 unitDecimals, uint256 totalSupplyAmount) {
@@ -59,7 +73,10 @@ contract ERC20{
 
     function transferFrom(address _from, address _to, uint256 _value) external onlyAuthorizedAccount(_from)  balanceCheck(_from, _value) returns(bool) {
         if (_from != msg.sender){
-            require(approveList[_from][msg.sender] >= _value, "03");
+            if(approveList[_from][msg.sender] < _value){
+                revert yourApprovedValueToTransferIsLessThanValueYouWant();
+            }
+            // require(approveList[_from][msg.sender] >= _value, "03");
             // 03: Your approved value to transfer is less than value you want.
             unchecked {
                 approveList[_from][msg.sender] -= _value;
