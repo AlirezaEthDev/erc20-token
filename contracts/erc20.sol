@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.27;
 
-import "../interface/IERC165.sol";
+// import "../interface/IERC165.sol";
 
 contract ERC20{
 
@@ -10,7 +10,7 @@ contract ERC20{
     bytes public name;
     bytes public symbol;
     uint8 public decimals;
-    uint256 public total_supply;
+    uint256 public totalSupply;
 
     event Transfer(address indexed _from, address indexed _to, uint256 _value);
     event Approval(address indexed _owner, address indexed _spender, uint256 _value);
@@ -50,19 +50,15 @@ contract ERC20{
         name = tokenName;
         symbol = tokenSymbol;
         decimals = unitDecimals;
-        total_supply = totalSupplyAmount;
-        balanceList[owner] = total_supply;
-        emit Transfer(address(0x0), owner, total_supply);
+        totalSupply = totalSupplyAmount;
+        balanceList[owner] = totalSupply;
+        emit Transfer(address(0x0), owner, totalSupply);
     }
 
     function supportsInterface(bytes4 interfaceID) external pure returns(bool){
         bool ierc165Id = (interfaceID == this.supportsInterface.selector);
         bool ierc20Id = (interfaceID == this.totalSupply.selector ^ this.balanceOf.selector ^ this.transfer.selector ^ this.transferFrom.selector ^ this.approve.selector ^ this.allowance.selector);
         return (ierc165Id || ierc20Id);
-    }
-
-    function totalSupply() public view returns (uint256){
-        return total_supply;
     }
 
     function balanceOf(address _owner) external view returns(uint256) {

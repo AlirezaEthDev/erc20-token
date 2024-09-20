@@ -1,9 +1,9 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "C:\\Pug\\erc20-token\\contracts\\erc20.sol": {
-      "lastModificationDate": 1726736367167,
-      "contentHash": "df46d10d7e920a8cba7bdc1c4a8ed059",
+    "E:\\erc20-token\\erc20-token\\contracts\\erc20.sol": {
+      "lastModificationDate": 1726825166918,
+      "contentHash": "85f488f6550a8a8458f39ce939e40cea",
       "sourceName": "contracts/erc20.sol",
       "solcConfig": {
         "version": "0.8.27",
@@ -29,9 +29,7 @@
           }
         }
       },
-      "imports": [
-        "../interface/IERC165.sol"
-      ],
+      "imports": [],
       "versionPragmas": [
         "^0.8.27"
       ],
@@ -39,8 +37,8 @@
         "ERC20"
       ]
     },
-    "C:\\Pug\\erc20-token\\interface\\IERC165.sol": {
-      "lastModificationDate": 1726733455384,
+    "E:\\erc20-token\\erc20-token\\interface\\IERC165.sol": {
+      "lastModificationDate": 1726815468846,
       "contentHash": "5f264f6cb309416a9d4ca404042f707e",
       "sourceName": "interface/IERC165.sol",
       "solcConfig": {
