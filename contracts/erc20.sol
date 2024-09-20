@@ -4,7 +4,7 @@ pragma solidity ^0.8.27;
 
 import "../interface/IERC165.sol";
 
-contract ERC20{
+contract ERC20 is IERC165{
 
     address public owner;
     bytes public name;
@@ -55,7 +55,7 @@ contract ERC20{
         emit Transfer(address(0x0), owner, totalSupply);
     }
 
-    function supportsInterface(bytes4 interfaceID) external pure returns(bool){
+    function supportsInterface(bytes4 interfaceID) external override pure returns(bool){
         bool ierc165Id = (interfaceID == this.supportsInterface.selector);
         bool ierc20Id = (interfaceID == this.totalSupply.selector ^ this.balanceOf.selector ^ this.transfer.selector ^ this.transferFrom.selector ^ this.approve.selector ^ this.allowance.selector);
         return (ierc165Id || ierc20Id);
