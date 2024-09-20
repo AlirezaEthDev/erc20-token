@@ -109,4 +109,36 @@ contract ERC20{
         return approveList[_owner][ _spender];
     }
 
+    // function mint(uint256 _value) external onlyAuthorizedAccount(owner){
+    //     totalSupply += _value;
+    //     balanceList[owner] += _value;
+    //     emit Transfer(address(0x0), owner, _value);
+    // }
+
+    // function burn(uint256 _value) external onlyAuthorizedAccount(owner) balanceCheck(owner, _value){
+    //     totalSupply -= _value;
+    //     balanceList[owner] -= _value;
+    //     emit Transfer(owner, address(0x0), _value);
+    // }
+
+    function mintOrBurn(uint256 _value, bool isMint) external onlyAuthorizedAccount(owner){
+        address fromAddress;
+        address toAddress;
+        if(isMint){
+            totalSupply += _value;
+            balanceList[owner] += _value;
+            fromAddress = address(0x0);
+            toAddress = owner;
+        }else{
+            if(balanceList[owner] < _value){
+                revert theBalanceIsNotEnoughToTransferOrApprove();
+            }else{
+                totalSupply -= _value;
+                balanceList[owner] -= _value;
+                fromAddress = owner;
+                toAddress = address(0x0);   
+            }
+        }
+        emit Transfer(fromAddress, toAddress, _value);
+    }
 }

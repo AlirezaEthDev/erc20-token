@@ -98,24 +98,24 @@ const web3= new Web3(new Web3.providers.WebsocketProvider("ws://127.0.0.1:8545")
 
 const accounts = await web3.eth.getAccounts(); 
 
-const deployerAccount = accounts[0];
+let deployerAccount = accounts[0];
 
 * To deploy contract:
 
-const contractObject=JSON.parse(fs.readFileSync("./artifacts/contracts/erc20.sol/ERC20.json"));
+let contractObject=JSON.parse(fs.readFileSync("./artifacts/contracts/erc20.sol/ERC20.json"));
 
-const contractBytecode = contractObject.bytecode;
+let contractBytecode = contractObject.bytecode;
 
-const contractABI = contractObject.abi;
+let contractABI = contractObject.abi;
 
-const myContract = new web3.eth.Contract(contractABI);
+let myContract = new web3.eth.Contract(contractABI);
 
-const contractInstance = await myContract.deploy({data: contractBytecode, arguments: []}).send({from: deployerAccount, gas: 1500000, gasPrice: '30000000000'});
+let contractInstance = await myContract.deploy({data: contractBytecode, arguments: []}).send({from: deployerAccount, gas: 1500000, gasPrice: '30000000000'});
 
-const contractAddress = contractInstance.options.address
+let contractAddress = contractInstance.options.address
 
 * Interact with deployed contract:
 
-const myContractDeployed = new web3.eth.Contract(contractABI, contractAddress);
+let myContractDeployed = new web3.eth.Contract(contractABI, contractAddress);
 
 console.log(await myContractDeployed.methods.myReadOnlyFunction().call())
