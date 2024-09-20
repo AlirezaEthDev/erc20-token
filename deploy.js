@@ -6,8 +6,8 @@ async function main() {
     const ERC20 = await hre.ethers.getContractFactory("ERC20");
 
     // Define constructor arguments
-    const tokenName = "MyToken"; // Token name
-    const tokenSymbol = "MTK";    // Token symbol
+    const tokenName = Buffer.from('MyToken','utf-8'); // Token name
+    const tokenSymbol = Buffer.from('MTK','utf-8');    // Token symbol
     const decimals = 18;           // Decimals
     const totalSupplyAmount = ethers.utils.parseUnits("1000000", decimals); // Total supply (1 million tokens)
 
