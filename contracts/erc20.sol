@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.27;
 
-// import "../interface/IERC165.sol";
+import "../interface/IERC165.sol";
 
 contract ERC20{
 
@@ -108,18 +108,6 @@ contract ERC20{
     function allowance(address _owner, address _spender) external view returns(uint256) {
         return approveList[_owner][ _spender];
     }
-
-    // function mint(uint256 _value) external onlyAuthorizedAccount(owner){
-    //     totalSupply += _value;
-    //     balanceList[owner] += _value;
-    //     emit Transfer(address(0x0), owner, _value);
-    // }
-
-    // function burn(uint256 _value) external onlyAuthorizedAccount(owner) balanceCheck(owner, _value){
-    //     totalSupply -= _value;
-    //     balanceList[owner] -= _value;
-    //     emit Transfer(owner, address(0x0), _value);
-    // }
 
     function mintOrBurn(uint256 _value, bool isMint) external onlyAuthorizedAccount(owner){
         address fromAddress;
