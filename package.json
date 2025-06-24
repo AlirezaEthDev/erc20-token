@@ -1,21 +1,10 @@
 {
-  "name": "ADX",
-  "version": "1.0.0",
-  "description": "ADX coin for the game on Telegram.",
-  "main": "index.js",
-  "repository": "git@github.com:AlirezaEthDev/erc20-token.git",
-  "author": "AlirezaEthDev <67728013+AlirezaEthDev@users.noreply.github.com>",
-  "license": "MIT",
-  "private": true,
-  "devDependencies": {
-    "hardhat": "^2.22.10"
-  },
   "dependencies": {
-    "@nomiclabs/hardhat-ethers": "^2.2.3",
-    "@nomiclabs/hardhat-waffle": "^2.0.6",
-    "chai": "^5.1.1",
-    "ethereum-waffle": "^4.0.10",
-    "ethers": "^5.7.2",
-    "web3": "^1.10.4"
+    "dotenv": "^16.5.0",
+    "ethers": "^6.14.4",
+    "hardhat": "^2.25.0"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-verify": "^2.0.14"
   }
 }

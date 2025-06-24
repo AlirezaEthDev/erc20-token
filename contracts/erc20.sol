@@ -7,8 +7,8 @@ import "../interface/IERC165.sol";
 contract ERC20 is IERC165{
 
     address public owner;
-    bytes public name;
-    bytes public symbol;
+    string public name;
+    string public symbol;
     uint8 public decimals;
     uint256 public totalSupply;
 
@@ -29,9 +29,6 @@ contract ERC20 is IERC165{
         }else{
             revert theRequesterIsNotAuthorized();
         }
-        // require( authorizedAddress == msg.sender || whoIsApprovedBy[authorizedAddress] == msg.sender, "01");
-        // 01: The requester is not authorized!
-        // _;
     }
 
     modifier balanceCheck(address requester, uint256 requestValue) {
@@ -40,12 +37,9 @@ contract ERC20 is IERC165{
         }else{
             revert theBalanceIsNotEnoughToTransferOrApprove();
         }
-        // require(balanceList[requester] >= requestValue, "02");
-        // // 02: The balance is not enough to transfer or approve
-        // _;
     }
 
-    constructor(bytes memory tokenName, bytes memory tokenSymbol, uint8 unitDecimals, uint256 totalSupplyAmount) {
+    constructor(string memory tokenName, string memory tokenSymbol, uint8 unitDecimals, uint256 totalSupplyAmount) {
         owner = msg.sender;
         name = tokenName;
         symbol = tokenSymbol;
@@ -65,17 +59,12 @@ contract ERC20 is IERC165{
         return balanceList[_owner];
     }
 
-    function transfer(address _to, uint256 _value) external onlyAuthorizedAccount(owner) balanceCheck(owner, _value) returns(bool) {
-        if (owner != msg.sender){
-            unchecked {
-                approveList[owner][msg.sender] -= _value;
-            }
-        }
+    function transfer(address _to, uint256 _value) external balanceCheck(msg.sender, _value) returns(bool) {
         unchecked {
-            balanceList[owner] -= _value;
+            balanceList[msg.sender] -= _value;
             balanceList[_to] += _value;
         }
-        emit Transfer(owner, _to, _value);
+        emit Transfer(msg.sender, _to, _value);
         return true;
     }
 
@@ -84,8 +73,6 @@ contract ERC20 is IERC165{
             if(approveList[_from][msg.sender] < _value){
                 revert yourApprovedValueToTransferIsLessThanValueYouWant();
             }
-            // require(approveList[_from][msg.sender] >= _value, "03");
-            // 03: Your approved value to transfer is less than value you want.
             unchecked {
                 approveList[_from][msg.sender] -= _value;
             }
