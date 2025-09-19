@@ -1,4 +1,5 @@
 require('@nomicfoundation/hardhat-verify');
+require("@nomicfoundation/hardhat-toolbox");
 const ethers = require('ethers');
 const fs = require('fs');
 require('dotenv').config();
@@ -41,7 +42,7 @@ module.exports = {
   },
   paths: {
     sources: "./contracts",
-    tests: "./test/hardhat",
+    tests: "./test",
     cache: "./cache",
     artifacts: "./artifacts"
   },
