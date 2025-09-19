@@ -90,14 +90,11 @@ contract ERC20 is IERC20, IERC165, IERC20Metadata, IERC20Errors, Context {
     }
 
     // constructor
-    constructor(string memory tokenName, string memory tokenSymbol, uint8 unitDecimals, uint256 totalSupplyAmount) {
+    constructor(string memory tokenName, string memory tokenSymbol, uint8 unitDecimals) {
         owner = _msgSender();
         _name_ = tokenName;
         _symbol_ = tokenSymbol;
         _decimals_ = unitDecimals;
-        _totalSupply_ = totalSupplyAmount;
-        balanceList[owner] = _totalSupply_;
-        emit Transfer(address(0), owner, _totalSupply_);
     }
 
     // Functions
@@ -195,6 +192,7 @@ contract ERC20 is IERC20, IERC165, IERC20Metadata, IERC20Errors, Context {
         _totalSupply_ += _value;
         balanceList[_to] += _value;
         emit Mint(_value, _totalSupply_);
+        emit Transfer(address(0), _to, _totalSupply_);
     }
 
     function burn(uint256 _value) external senderCheck balanceCheck(_value){
@@ -202,6 +200,7 @@ contract ERC20 is IERC20, IERC165, IERC20Metadata, IERC20Errors, Context {
         _totalSupply_ -= _value;
         balanceList[msgSender] -= _value;
         emit Burn(_value, _totalSupply_);
+        emit Transfer(msgSender, address(0), _totalSupply_);
     }
 
     // Metadata

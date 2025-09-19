@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "D:\\erc20\\erc20-token\\contracts\\ERC20.sol": {
-      "lastModificationDate": 1758281083409,
-      "contentHash": "d7246cd7af2a70ef78c6ed29b51ade8c",
+      "lastModificationDate": 1758293795181,
+      "contentHash": "fac8fef4b222c70497bfb8eaf4903e2b",
       "sourceName": "contracts/ERC20.sol",
       "solcConfig": {
         "version": "0.8.28",
