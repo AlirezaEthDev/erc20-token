@@ -245,6 +245,35 @@ contract ERC20 is IERC20, IERC165, IERC20Metadata, IERC20Errors, Context {
         }
     }
 
+    /**
+    * @notice Updates the name of token
+    * @dev Only owner can call this function
+    * @param _name New name for this token 
+     */
+    function changeName(string memory _name) external onlyOwner {
+        _name_ = _name;
+        emit TokenNameChanged(_name_);
+    }
+
+    /**
+    * @notice Updates the symbol of token
+    * @dev Only owner can call this function
+    * @param _symbol New symbol for this token 
+     */
+    function changeSymbol(string memory _symbol) external onlyOwner {
+        _symbol_ = _symbol;
+        emit TokenSymbolChanged(_symbol_);
+    }
+
+    /**
+    * @notice Resets the decimals of token
+    * @dev Only owner can call this function
+    * @param _decimals New value for decimals of token 
+     */
+    function changeDecimals(uint8 _decimals) external onlyOwner {
+        _decimals_ = _decimals;
+        emit TokenDecimalsChanged(_decimals_);
+    }
     // ==================== ERC20 CORE FUNCTIONS ====================
 
     /**
