@@ -274,6 +274,7 @@ contract ERC20 is IERC20, IERC165, IERC20Metadata, IERC20Errors, Context {
         _decimals_ = _decimals;
         emit TokenDecimalsChanged(_decimals_);
     }
+    
     // ==================== ERC20 CORE FUNCTIONS ====================
 
     /**
