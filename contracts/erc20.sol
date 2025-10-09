@@ -105,7 +105,7 @@ contract ERC20 is IERC20, IERC165, IERC20Metadata, IERC20Errors, Context {
      * @dev Reverts with OnlyOwner error if caller is not the owner
      */
     modifier onlyOwner() {
-        address msgSender = _msgSender();
+        address msgSender = msgSender();
         if(msgSender == owner) {
             _;
         } else {
@@ -119,7 +119,7 @@ contract ERC20 is IERC20, IERC165, IERC20Metadata, IERC20Errors, Context {
      * @param _requestValue Amount of tokens required for the operation
      */
     modifier balanceCheck(uint256 _requestValue) {
-        address requester = _msgSender();
+        address requester = msgSender();
         uint256 balance = balanceList[requester];
         if( balance >= _requestValue){
             _;
@@ -134,7 +134,7 @@ contract ERC20 is IERC20, IERC165, IERC20Metadata, IERC20Errors, Context {
      * @dev Reverts with InvalidSender error if sender is zero address
      */
     modifier senderCheck() {
-        address sender = _msgSender();
+        address sender = msgSender();
         if(sender == address(0)) {
             revert InvalidSender(sender);
         } else {
@@ -160,7 +160,7 @@ contract ERC20 is IERC20, IERC165, IERC20Metadata, IERC20Errors, Context {
      * @dev Reverts with InvalidApprover error if approver is zero address
      */
     modifier approverCheck() {
-        address approver = _msgSender();
+        address approver = msgSender();
         if(approver == address(0)) {
             revert InvalidApprover(approver);
         } else {
@@ -191,7 +191,7 @@ contract ERC20 is IERC20, IERC165, IERC20Metadata, IERC20Errors, Context {
      * @param unitDecimals Number of decimal places for token precision (typically 18)
      */
     constructor(string memory tokenName, string memory tokenSymbol, uint8 unitDecimals) {
-        owner = _msgSender();
+        owner = msgSender();
         _name_ = tokenName;
         _symbol_ = tokenSymbol;
         _decimals_ = unitDecimals;
@@ -235,7 +235,7 @@ contract ERC20 is IERC20, IERC165, IERC20Metadata, IERC20Errors, Context {
      * @custom:security Prevents ownership transfer to unintended addresses
      */
     function changeOwner() external {
-        address msgSender = _msgSender();
+        address msgSender = msgSender();
         if(msgSender == pendingOwner) {
             owner = pendingOwner;
             pendingOwner = address(0);
@@ -265,7 +265,7 @@ contract ERC20 is IERC20, IERC165, IERC20Metadata, IERC20Errors, Context {
      * @return true if transfer succeeded
      */
     function transfer(address _to, uint256 _value) external senderCheck receiptCheck(_to) balanceCheck(_value) returns(bool) {
-        address msgSender = _msgSender();
+        address msgSender = msgSender();
         unchecked {
             balanceList[msgSender] -= _value;
             balanceList[_to] += _value;
@@ -285,7 +285,7 @@ contract ERC20 is IERC20, IERC165, IERC20Metadata, IERC20Errors, Context {
     function transferFrom(address _from, address _to, uint256 _value) external returns(bool) {
         if(_from != address(0)){
             if(_to != address (0)) {
-                address msgSender = _msgSender();
+                address msgSender = msgSender();
                 uint256 balance = balanceList[_from];
                 uint256 appAmount = approveList[_from][msgSender];
                 uint256 needed;
@@ -325,7 +325,7 @@ contract ERC20 is IERC20, IERC165, IERC20Metadata, IERC20Errors, Context {
      * @return true if approval succeeded
      */
     function approve(address _spender, uint256 _value) external approverCheck spenderCheck(_spender) balanceCheck(_value) returns(bool) {
-        address msgSender = _msgSender();
+        address msgSender = msgSender();
         approveList[msgSender][_spender]  = _value;
         whoIsApprovedBy[msgSender] = _spender;
         emit Approval(msgSender, _spender, _value);
@@ -366,7 +366,7 @@ contract ERC20 is IERC20, IERC165, IERC20Metadata, IERC20Errors, Context {
      * @custom:security Users can only burn their own tokens
      */
     function burn(uint256 _value) external senderCheck balanceCheck(_value){
-        address msgSender = _msgSender();
+        address msgSender = msgSender();
         _totalSupply_ -= _value;
         balanceList[msgSender] -= _value;
         emit Burn(_value, _totalSupply_);
