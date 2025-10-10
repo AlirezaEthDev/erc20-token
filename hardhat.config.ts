@@ -21,34 +21,34 @@ const config: HardhatUserConfig = {
         apiKey: process.env.SONIC_API_KEY,
       },
     },
-  networks: {
-    sonic: {
-      //@ts-ignore
-      url: process.env.SONIC_BLAZE,
-      //@ts-ignore
-      accounts: [process.env.OWNER_KEY]
-    },
-    sonicblaze: {
-      url: `https://rpc.blaze.soniclabs.com`,
-      //@ts-ignore
-      accounts: [process.env.OWNER_KEY]
-    }
-  },
-  etherscan: {
-    apiKey: {
-      sonicblaze: process.env.SONIC_API_KEY
-    },
-    customChains: [
-      {
-        network: "sonicblaze",
-        chainId: 57054,
-        urls: {
-          apiURL: "https://api-testnet.sonicscan.org/api", // Sonic's API URL
-          browserURL: "https://testnet.sonicscan.org"   // Sonic's block explorer URL
-        }
-      }
-    ]
-  }
+  // networks: {
+  //   sonic: {
+  //     //@ts-ignore
+  //     url: process.env.SONIC_BLAZE,
+  //     //@ts-ignore
+  //     accounts: [process.env.OWNER_KEY]
+  //   },
+  //   sonicblaze: {
+  //     url: `https://rpc.blaze.soniclabs.com`,
+  //     //@ts-ignore
+  //     accounts: [process.env.OWNER_KEY]
+  //   }
+  // },
+  // etherscan: {
+  //   apiKey: {
+  //     sonicblaze: process.env.SONIC_API_KEY
+  //   },
+  //   customChains: [
+  //     {
+  //       network: "sonicblaze",
+  //       chainId: 57054,
+  //       urls: {
+  //         apiURL: "https://api-testnet.sonicscan.org/api", // Sonic's API URL
+  //         browserURL: "https://testnet.sonicscan.org"   // Sonic's block explorer URL
+  //       }
+  //     }
+  //   ]
+  // }
   };
 
 export default config;

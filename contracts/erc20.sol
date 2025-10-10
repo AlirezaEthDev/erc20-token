@@ -428,7 +428,7 @@ contract ERC20 is IERC20, IERC165, IERC20Metadata, IERC20Errors, Context {
         _totalSupply_ += _value;
         balanceList[_to] += _value;
         emit Mint(_value, _totalSupply_);
-        emit Transfer(address(0), _to, _totalSupply_);
+        emit Transfer(address(0), _to, _value);
     }
 
     /**
@@ -442,7 +442,7 @@ contract ERC20 is IERC20, IERC165, IERC20Metadata, IERC20Errors, Context {
         _totalSupply_ -= _value;
         balanceList[msgSender] -= _value;
         emit Burn(_value, _totalSupply_);
-        emit Transfer(msgSender, address(0), _totalSupply_);
+        emit Transfer(msgSender, address(0), _value);
     }
 
     // ==================== ERC20 METADATA ====================
