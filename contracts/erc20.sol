@@ -134,16 +134,15 @@ contract ERC20 is IERC20, IERC165, IERC20Metadata, IERC20Errors, Context {
     /**
      * @notice Checks if caller has sufficient balance for the requested operation
      * @dev Reverts with InsufficientBalance error if balance is insufficient
-     * @param _requestValue Amount of tokens required for the operation
+     * @param _value Amount of tokens required for the operation
      */
-    modifier balanceCheck(uint256 _requestValue) {
+    modifier balanceCheck(uint256 _value) {
         address requester = msgSender();
         uint256 balance = balanceList[requester];
-        if( balance >= _requestValue){
+        if( balance >= _value){
             _;
         }else{
-            uint256 needed = _requestValue - balance;
-            revert InsufficientBalance(requester, balance, needed);
+            revert InsufficientBalance(requester, balance, _value);
         }
     }
 
@@ -337,12 +336,10 @@ contract ERC20 is IERC20, IERC165, IERC20Metadata, IERC20Errors, Context {
                 address msgSender = msgSender();
                 uint256 balance = balanceList[_from];
                 uint256 appAmount = approveList[_from][msgSender];
-                uint256 needed;
                 if(balance >= _value) {
                     if (_from != msgSender){
                         if(appAmount < _value){
-                            needed = _value - appAmount;
-                            revert InsufficientAllowance(msgSender, appAmount, needed);
+                            revert InsufficientAllowance(msgSender, appAmount, _value);
                         }
                         unchecked {
                             approveList[_from][msgSender] -= _value;
@@ -355,8 +352,7 @@ contract ERC20 is IERC20, IERC165, IERC20Metadata, IERC20Errors, Context {
                     emit Transfer(_from, _to, _value);
                     return true;
                 } else {
-                    needed = _value - balance;
-                    revert InsufficientBalance(msgSender, balance, needed);
+                    revert InsufficientBalance(msgSender, balance, _value);
                 }
             } else {
                 revert InvalidReceiver(_to);
