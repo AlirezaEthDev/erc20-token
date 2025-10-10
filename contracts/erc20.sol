@@ -52,6 +52,24 @@ contract ERC20 is IERC20, IERC165, IERC20Metadata, IERC20Errors, Context {
     event OwnerChanged(address _newOwner, address _pendingOwner);
 
     /**
+    * @notice Emitted when token name updated only by owner
+    * @param _name The new name of the token
+     */
+    event TokenNameChanged(string _name);
+
+    /**
+    * @notice Emitted when token symbol updated only by owner
+    * @param _symbol The new symbol of the token
+     */
+    event TokenSymbolChanged(string _symbol);
+
+    /**
+    * @notice Emitted when token decimals value updated only by owner
+    * @param _decimals The new decimals value of the token
+     */
+    event TokenDecimalsChanged(uint8 _decimals);
+
+    /**
      * @notice Emitted when tokens are minted
      * @param _mintValue Amount of tokens minted
      * @param _supplyValue New total supply after minting
@@ -169,15 +187,16 @@ contract ERC20 is IERC20, IERC165, IERC20Metadata, IERC20Errors, Context {
     }
 
     /**
-     * @notice Validates that the spender address is not the zero address
-     * @dev Reverts with InvalidSpender error if spender is zero address
+     * @notice Validates that the spender address is not msgSender, the owner, or the zero address
+     * @dev Reverts with InvalidSpender error if spender is msgSender, the owner, or the zero address
      * @param _spender Address to validate as spender
      */
     modifier spenderCheck(address _spender) {
-        if(_spender == address(0)) {
-            revert InvalidSpender(_spender);
-        } else {
+        address msgSender = msgSender();
+        if(_spender != msgSender && _spender != owner && _spender != address(0)) {
             _;
+        } else {
+            revert InvalidSpender(_spender);
         }
     }
 
