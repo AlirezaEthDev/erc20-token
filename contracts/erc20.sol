@@ -89,10 +89,11 @@ contract ERC20 is IERC20, IERC165, IERC20Metadata, IERC20Errors, Context {
     mapping(address => uint256) private balanceList;
 
     /// @dev Mapping of token allowances (owner => spender => amount)
-    mapping(address => mapping(address => uint256)) private approveList;
+    mapping(address => mapping(address => uint256)) private allowanceList;
 
     /// @dev Mapping to track who approved whom (informational)
-    mapping(address => address) private whoIsApprovedBy;
+    mapping(address => mapping(address => bool)) private approvedList;
+
 
     // ==================== CUSTOM ERRORS ====================
 
@@ -107,7 +108,7 @@ contract ERC20 is IERC20, IERC165, IERC20Metadata, IERC20Errors, Context {
      * @notice Thrown when trying to set zero address as pending owner
      * @param _setAddr The invalid address that was attempted to be set
      */
-    error ZerpPendingOwner(address _setAddr);
+    error ZeroPendingOwner(address _setAddr);
 
     /**
      * @notice Thrown when a non-pending owner tries to claim ownership
@@ -115,6 +116,14 @@ contract ERC20 is IERC20, IERC165, IERC20Metadata, IERC20Errors, Context {
      * @param _yourAddress Address that attempted to claim ownership
      */
     error OnlyPendingPwner(address _pendingOwner, address _yourAddress);
+
+    /**
+    * @notice Thrown when overflow happened for the balance of to address 
+    * @param _to Address of transfer destination
+    * @param _balance Balance of transfer destination
+    * @param _transValue Amount of token to transfer
+     */
+    error DestinationBalanceMax(address _to, uint256 _balance, uint256 _transValue);
 
     // ==================== MODIFIERS ====================
 
@@ -146,6 +155,20 @@ contract ERC20 is IERC20, IERC165, IERC20Metadata, IERC20Errors, Context {
         }
     }
 
+    /**
+    * @notice Checks if overflow happens for transfer destination
+    * @param _to Address of transfer destination
+    * @param _value Token amount to transfer    
+     */
+    modifier destOverFlowCheck(address _to, uint256 _value) {
+        uint256 toBalance = balanceList[_to];
+        uint256 maxValue = type(uint256).max;
+        if(toBalance + _value > maxValue) {
+            revert DestinationBalanceMax(_to, toBalance, _value);
+        } else {
+            _;
+        }
+    }
     /**
      * @notice Validates that the sender is not the zero address
      * @dev Reverts with InvalidSender error if sender is zero address
@@ -242,7 +265,7 @@ contract ERC20 is IERC20, IERC165, IERC20Metadata, IERC20Errors, Context {
             pendingOwner = _pendingOwner;
             emit NewPendingOwnerSet(pendingOwner);
         } else {
-            revert ZerpPendingOwner(_pendingOwner);
+            revert ZeroPendingOwner(_pendingOwner);
         }
 
     }
@@ -312,7 +335,7 @@ contract ERC20 is IERC20, IERC165, IERC20Metadata, IERC20Errors, Context {
      * @param _value Amount of tokens to transfer
      * @return true if transfer succeeded
      */
-    function transfer(address _to, uint256 _value) external senderCheck receiptCheck(_to) balanceCheck(_value) returns(bool) {
+    function transfer(address _to, uint256 _value) external senderCheck receiptCheck(_to) balanceCheck(_value) destOverFlowCheck(_to, _value) returns(bool) {
         address msgSender = msgSender();
         unchecked {
             balanceList[msgSender] -= _value;
@@ -330,19 +353,23 @@ contract ERC20 is IERC20, IERC165, IERC20Metadata, IERC20Errors, Context {
      * @param _value Amount of tokens to transfer
      * @return true if transfer succeeded
      */
-    function transferFrom(address _from, address _to, uint256 _value) external returns(bool) {
+    function transferFrom(address _from, address _to, uint256 _value) external destOverFlowCheck(_to, _value) returns(bool) {
         if(_from != address(0)){
             if(_to != address (0)) {
                 address msgSender = msgSender();
                 uint256 balance = balanceList[_from];
-                uint256 appAmount = approveList[_from][msgSender];
                 if(balance >= _value) {
                     if (_from != msgSender){
-                        if(appAmount < _value){
-                            revert InsufficientAllowance(msgSender, appAmount, _value);
-                        }
-                        unchecked {
-                            approveList[_from][msgSender] -= _value;
+                        if(approvedList[_from][msgSender]) {
+                            uint256 appAmount = allowanceList[_from][msgSender];
+                            if(appAmount < _value){
+                                revert InsufficientAllowance(msgSender, appAmount, _value);
+                            }
+                            unchecked {
+                                allowanceList[_from][msgSender] -= _value;
+                            }
+                        } else {
+                            revert InvalidSender(msgSender);
                         }
                     }
                     unchecked {
@@ -371,8 +398,8 @@ contract ERC20 is IERC20, IERC165, IERC20Metadata, IERC20Errors, Context {
      */
     function approve(address _spender, uint256 _value) external approverCheck spenderCheck(_spender) balanceCheck(_value) returns(bool) {
         address msgSender = msgSender();
-        approveList[msgSender][_spender]  = _value;
-        whoIsApprovedBy[msgSender] = _spender;
+        approvedList[msgSender][_spender] = true;
+        allowanceList[msgSender][_spender]  += _value;
         emit Approval(msgSender, _spender, _value);
         return true;
     }
@@ -385,7 +412,7 @@ contract ERC20 is IERC20, IERC165, IERC20Metadata, IERC20Errors, Context {
      * @return The number of tokens spender is allowed to transfer
      */
     function allowance(address _owner, address _spender) external view returns(uint256) {
-        return approveList[_owner][ _spender];
+        return allowanceList[_owner][ _spender];
     }
 
     // ==================== MINTING & BURNING ====================
@@ -455,6 +482,14 @@ contract ERC20 is IERC20, IERC165, IERC20Metadata, IERC20Errors, Context {
     function totalSupply() external view returns (uint256) {
         return _totalSupply_;
     }
-    
 
+    /**
+    * @notice Shows if a spender approved by an owner
+    * @param _owner Address of owner that approved a spender
+    * @param _spender Address of spender that approved by an owner
+     */
+    function approvement(address _owner, address _spender) external view returns (bool) {
+        return approvedList[_owner][_spender];
+    }
+    
 }

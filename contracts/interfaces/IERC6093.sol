@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity >=0.8.4;
+pragma solidity ^0.8.27;
 
 interface IERC20Errors {
     error InsufficientBalance(address _sender, uint256 _balance, uint256 _needed);
